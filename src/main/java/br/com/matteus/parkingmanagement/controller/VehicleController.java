@@ -1,6 +1,7 @@
 package br.com.matteus.parkingmanagement.controller;
 
 import br.com.matteus.parkingmanagement.request.CreateVehicleRequest;
+import br.com.matteus.parkingmanagement.request.UpdateVehicleRequest;
 import br.com.matteus.parkingmanagement.response.VehicleDetailsResponse;
 import br.com.matteus.parkingmanagement.service.VehicleService;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,6 +33,20 @@ public class VehicleController {
     @GetMapping("/details/{id}")
     public ResponseEntity details(@PathVariable Long id) {
         var vehicle = vehicleService.details(id);
+        return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
+    }
+
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid UpdateVehicleRequest request) {
+        var vehicle = vehicleService.update(request);
+        return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
+    }
+
+    @PutMapping("/disable/{id}")
+    @Transactional
+    public ResponseEntity disable(@PathVariable Long id) {
+        var vehicle = vehicleService.disable(id);
         return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
     }
 }

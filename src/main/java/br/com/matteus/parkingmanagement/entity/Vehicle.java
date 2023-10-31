@@ -32,9 +32,9 @@ public class Vehicle {
     private String plate;
     @Enumerated(EnumType.STRING)
     private VehicleType type;
-    @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
     private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
+    private Boolean active;
 
 }
