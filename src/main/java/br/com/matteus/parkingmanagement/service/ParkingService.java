@@ -1,46 +1,49 @@
 package br.com.matteus.parkingmanagement.service;
 
-import br.com.matteus.parkingmanagement.client.ViaCepClient;
-import br.com.matteus.parkingmanagement.entity.Adress;
+import br.com.matteus.parkingmanagement.utils.ParkingUtils;
 import br.com.matteus.parkingmanagement.entity.Parking;
 import br.com.matteus.parkingmanagement.repository.ParkingRepository;
 import br.com.matteus.parkingmanagement.request.CreateParkingRequest;
+import br.com.matteus.parkingmanagement.request.UpdateParkingRequest;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
-    private final ViaCepClient viaCepClient;
+    private final ParkingUtils parkingUtils;
 
-    public ParkingService(ParkingRepository parkingRepository, ViaCepClient viaCepClient) {
+    public ParkingService(ParkingRepository parkingRepository, ParkingUtils parkingUtils) {
         this.parkingRepository = parkingRepository;
-        this.viaCepClient = viaCepClient;
+        this.parkingUtils = parkingUtils;
     }
 
     public Parking create(CreateParkingRequest request) {
         var parking = new Parking();
-
-        parking.setName(request.name());
-        parking.setCnpj(request.cnpj());
-        parking.setCep(request.cep());
-
-        var adress = viaCepClient.getAdress(request.cep());
-        parking.setLogradouro(adress.logradouro());
-        parking.setBairro(adress.bairro());
-        parking.setLocalidade(adress.localidade());
-        parking.setUf(adress.uf());
-
-        parking.setMotorcycleSpaces(request.motorcycleSpaces());
-        parking.setCarSpaces(request.carSpaces());
-        parking.setCreatedAt(LocalDateTime.now());
-        parking.setActive(true);
-
-        parkingRepository.save(parking);
-
+        parkingUtils.setCreateAttributes(parking, request);
         return parking;
 
+    }
+
+    public Parking details(Long id) {
+        return parkingRepository.getReferenceById(id);
+    }
+
+    public Parking update(UpdateParkingRequest request) {
+        var parking = parkingRepository.getReferenceById(request.id());
+        parkingUtils.setUpdateAttributes(parking, request);
+        return parking;
+    }
+
+    public Parking disable(Long id) {
+        var parking = parkingRepository.getReferenceById(id);
+        parkingUtils.setDisableAttributes(parking);
+        return parking;
+    }
+
+    public Parking enable(Long id) {
+        var parking = parkingRepository.getReferenceById(id);
+        parkingUtils.setEnableAttributes(parking);
+        return parking;
     }
 }

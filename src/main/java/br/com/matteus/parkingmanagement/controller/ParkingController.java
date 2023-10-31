@@ -1,6 +1,7 @@
 package br.com.matteus.parkingmanagement.controller;
 
 import br.com.matteus.parkingmanagement.request.CreateParkingRequest;
+import br.com.matteus.parkingmanagement.request.UpdateParkingRequest;
 import br.com.matteus.parkingmanagement.response.ParkingDetailsResponse;
 import br.com.matteus.parkingmanagement.service.ParkingService;
 import jakarta.transaction.Transactional;
@@ -26,5 +27,36 @@ public class ParkingController {
         var uri = uriBuilder.path("/parking/{id}").buildAndExpand(parking.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new ParkingDetailsResponse(parking));
+    }
+
+    @GetMapping("/details/{id}")
+    public ResponseEntity details(@PathVariable Long id) {
+        var parking = parkingService.details(id);
+
+        return ResponseEntity.ok(new ParkingDetailsResponse(parking));
+    }
+
+    @PutMapping("/update")
+    @Transactional
+    public ResponseEntity update(@RequestBody @Valid UpdateParkingRequest request) {
+        var parking = parkingService.update(request);
+
+        return ResponseEntity.ok(new ParkingDetailsResponse(parking));
+    }
+
+    @PutMapping("/disable/{id}")
+    @Transactional
+    public ResponseEntity disable(@PathVariable Long id) {
+        var parking = parkingService.disable(id);
+
+        return ResponseEntity.ok().body(new ParkingDetailsResponse(parking));
+    }
+
+    @PutMapping("/enable/{id}")
+    @Transactional
+    public ResponseEntity enable(@PathVariable Long id) {
+        var parking = parkingService.enable(id);
+
+        return ResponseEntity.ok().body(new ParkingDetailsResponse(parking));
     }
 }

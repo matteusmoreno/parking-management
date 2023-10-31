@@ -49,4 +49,11 @@ public class VehicleController {
         var vehicle = vehicleService.disable(id);
         return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
     }
+
+    @PutMapping("/enable/{id}")
+    @Transactional
+    public ResponseEntity enable(@PathVariable Long id) {
+        var vehicle = vehicleService.enable(id);
+        return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
+    }
 }
