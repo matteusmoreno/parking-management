@@ -3,8 +3,10 @@ package br.com.matteus.parkingmanagement.controller;
 import br.com.matteus.parkingmanagement.request.CreateVehicleRequest;
 import br.com.matteus.parkingmanagement.response.VehicleDetailsResponse;
 import br.com.matteus.parkingmanagement.service.VehicleService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class VehicleController {
 
     private final VehicleService vehicleService;
-
+    @Autowired
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
@@ -27,4 +29,9 @@ public class VehicleController {
         return ResponseEntity.created(uri).body(new VehicleDetailsResponse(vehicle));
     }
 
+    @GetMapping("/details/{id}")
+    public ResponseEntity details(@PathVariable Long id) {
+        var vehicle = vehicleService.details(id);
+        return ResponseEntity.ok(new VehicleDetailsResponse(vehicle));
+    }
 }
