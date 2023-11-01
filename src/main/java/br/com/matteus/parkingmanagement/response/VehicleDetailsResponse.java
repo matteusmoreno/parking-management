@@ -14,6 +14,7 @@ public record VehicleDetailsResponse(
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         LocalDateTime deletedAt,
+        Boolean isParked,
         Boolean active) {
 
     public VehicleDetailsResponse(Vehicle vehicle) {
@@ -26,6 +27,7 @@ public record VehicleDetailsResponse(
                 vehicle.getCreatedAt(),
                 vehicle.getUpdatedAt(),
                 vehicle.getDeletedAt(),
+                vehicle.getIsParked(),
                 vehicle.getActive());
     }
 }

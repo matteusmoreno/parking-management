@@ -1,6 +1,6 @@
 package br.com.matteus.parkingmanagement.client;
 
-import br.com.matteus.parkingmanagement.entity.Adress;
+import br.com.matteus.parkingmanagement.dto.Adress;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

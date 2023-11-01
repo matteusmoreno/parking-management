@@ -8,5 +8,6 @@ CREATE TABLE vehicles (
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     deleted_at TIMESTAMP,
+    is_parked BOOLEAN,
     active BOOLEAN
 );

@@ -35,6 +35,7 @@ public class Vehicle {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+    private Boolean isParked;
     private Boolean active;
 
 }

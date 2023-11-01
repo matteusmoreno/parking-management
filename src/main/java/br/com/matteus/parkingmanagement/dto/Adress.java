@@ -1,4 +1,4 @@
-package br.com.matteus.parkingmanagement.entity;
+package br.com.matteus.parkingmanagement.dto;
 
 
 public record Adress (

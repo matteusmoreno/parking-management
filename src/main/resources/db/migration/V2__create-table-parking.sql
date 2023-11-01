@@ -9,6 +9,8 @@ CREATE TABLE parking (
     uf VARCHAR(2),
     motorcycle_spaces INT,
     car_spaces INT,
+    parked_motorcycles INT,
+    parked_cars INT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     deleted_at TIMESTAMP,

@@ -26,6 +26,8 @@ public class Parking {
     private String uf;
     private int motorcycleSpaces;
     private int carSpaces;
+    private int parkedMotorcycles;
+    private int parkedCars;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

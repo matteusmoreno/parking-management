@@ -28,6 +28,7 @@ public class VehicleUtils {
 
         vehicle.setCreatedAt(LocalDateTime.now());
         vehicle.setActive(true);
+        vehicle.setIsParked(false);
 
         vehicleRepository.save(vehicle);
     }
@@ -55,6 +56,7 @@ public class VehicleUtils {
 
     public void setDisableAttributes(Vehicle vehicle) {
         vehicle.setActive(false);
+        vehicle.setIsParked(false);
         vehicle.setDeletedAt(LocalDateTime.now());
         vehicleRepository.save(vehicle);
     }

@@ -1,6 +1,7 @@
 package br.com.matteus.parkingmanagement.controller;
 
 import br.com.matteus.parkingmanagement.request.CreateParkingRequest;
+import br.com.matteus.parkingmanagement.request.ParkingVehicleRequest;
 import br.com.matteus.parkingmanagement.request.UpdateParkingRequest;
 import br.com.matteus.parkingmanagement.response.ParkingDetailsResponse;
 import br.com.matteus.parkingmanagement.service.ParkingService;
@@ -56,6 +57,14 @@ public class ParkingController {
     @Transactional
     public ResponseEntity enable(@PathVariable Long id) {
         var parking = parkingService.enable(id);
+
+        return ResponseEntity.ok().body(new ParkingDetailsResponse(parking));
+    }
+
+    @PutMapping("/park-vehicle")
+    @Transactional
+    public ResponseEntity parkVehicle(@RequestBody @Valid ParkingVehicleRequest request) {
+        var parking = parkingService.parkVehicle(request);
 
         return ResponseEntity.ok().body(new ParkingDetailsResponse(parking));
     }
